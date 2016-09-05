@@ -2,12 +2,7 @@ from moneybot import config
 from moneybot.exc import NoSuchQuery
 from os import listdir
 from os.path import exists, join
-from sqlite3 import connect
-
-
-DB = {
-    'conn': None
-}
+from sqlite3 import connect, Error as SqliteError
 
 
 def get_con():
@@ -18,15 +13,43 @@ def get_query_contents(name):
     return open(join(config.SQL_PATH, name)).read().replace("\n", " ").strip()
 
 
-def insert(query_name, *args, **kwargs):
+def get_query(name):
     query = QUERIES.get(query_name)
 
     if query is None:
         raise NoSuchQuery(query_name)
 
+    return query
+
+
+def insert(query_name, *args, **kwargs):
+    # TODO something smarter
+    execute(query_name, args)
+
 
 def select(query_name, *args, **kwargs):
-    pass
+    # If set to true, then only send the first result.
+    first = kwargs.get("first", False)
+    con, cur = execute(query_name, args)
+
+    if first:
+        return cur.fetchone()
+    else:
+        return cur.fetchall()
+
+
+def execute(query_name, *args):
+    query = get_query(query_name)
+    con = get_con()
+    cur = con.cursor()
+
+    try:
+        cur.execute(query, args)
+    except SqliteError:
+        con.rollback()
+        raise
+    else:
+        return con, cur
 
 
 def setup_database():
@@ -44,6 +67,11 @@ def setup_database():
     with con:
         for query in queries:
             con.execute(query)
+
+
+DB = {
+    'conn': None
+}
 
 
 QUERIES = {
