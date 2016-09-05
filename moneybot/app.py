@@ -78,7 +78,10 @@ def get_command(contents):
 
 
 def parse_user_string(user_str):
-    cleaned = user_str.replace("<", "").replace(">", "").replace("@", "")
+    if "!" in user_str:
+        cleaned = user_str.replace("<@!", "").replace(">", "")
+    else:
+        cleaned = user_str.replace("<", "").replace(">", "").replace("@", "")
 
     return parse_int(cleaned)
 
