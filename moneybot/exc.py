@@ -4,3 +4,7 @@ class MoneybotException(Exception):
 
 class NoSuchQuery(MoneybotException):
     pass
+
+
+class InsufficientFunds(MoneybotException):
+    public = True

@@ -49,7 +49,9 @@ def execute(query_name, *args):
         con.rollback()
         raise
     else:
-        return con, cur
+        con.commit()
+
+    return con, cur
 
 
 def setup_database():
