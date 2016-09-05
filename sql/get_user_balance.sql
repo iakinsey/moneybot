@@ -1,4 +1,4 @@
 SELECT sum(amount)
 FROM ledger
-WHERE channel_id = ?
+WHERE server_id = ?
 AND user_id = ?

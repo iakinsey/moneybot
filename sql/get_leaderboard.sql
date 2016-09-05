@@ -1,3 +1,3 @@
 SELECT count(amount)
 FROM ledger
-GROUP BY channel_id
+GROUP BY server_id

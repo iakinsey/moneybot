@@ -13,7 +13,7 @@ def get_query_contents(name):
     return open(join(config.SQL_PATH, name)).read().replace("\n", " ").strip()
 
 
-def get_query(name):
+def get_query(query_name):
     query = QUERIES.get(query_name)
 
     if query is None:
@@ -24,13 +24,13 @@ def get_query(name):
 
 def insert(query_name, *args, **kwargs):
     # TODO something smarter
-    execute(query_name, args)
+    execute(query_name, *args)
 
 
 def select(query_name, *args, **kwargs):
     # If set to true, then only send the first result.
     first = kwargs.get("first", False)
-    con, cur = execute(query_name, args)
+    con, cur = execute(query_name, *args)
 
     if first:
         return cur.fetchone()
@@ -77,7 +77,7 @@ DB = {
 
 
 QUERIES = {
-    i.replace('sql', ''): get_query_contents(i)
+    i.replace('.sql', ''): get_query_contents(i)
     for i in listdir(config.SQL_PATH)
     if i != config.SCHEMA_FILE_NAME
 }

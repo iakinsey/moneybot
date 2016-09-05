@@ -8,3 +8,7 @@ class NoSuchQuery(MoneybotException):
 
 class InsufficientFunds(MoneybotException):
     public = True
+
+
+class InvalidCommand(MoneybotException):
+    public = True

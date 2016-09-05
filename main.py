@@ -11,7 +11,8 @@ def setup_data_path():
 def start_bot():
     setup_data_path()
     setup_database()
-    #connect_to_discord()
+    connect_to_discord()
+
 
 if __name__ == "__main__":
     start_bot()
