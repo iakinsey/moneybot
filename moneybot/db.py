@@ -39,6 +39,7 @@ async def select(query_name, *args, **kwargs):
 
 
 async def execute(query_name, *args):
+    # Annoying blocking calls.
     query = get_query(query_name)
     con = get_con()
     cur = con.cursor()
