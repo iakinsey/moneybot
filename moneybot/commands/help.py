@@ -9,8 +9,21 @@ class Help(Command):
         "$help pay",
         "$help fedspeak"
     ]
+    _help = None
 
     async def default(self):
+        await self.client.send_message(self.message.author, self.help)
+
+        return (
+            "Can't get filthy rich without some help! "
+            "You've received a PM containing information."
+        )
+
+    @property
+    def help(self):
+        if self._help is not None:
+            return self._help
+
         info = get_help()
         response = [
             "**GET HELPED**",
@@ -28,9 +41,6 @@ class Help(Command):
             msg = "{}\n{}".format(header, examples)
             response.append(msg)
 
-        await self.client.send_message(self.message.author, "\n".join(response))
+        self._help = "\n".join(response)
 
-        return (
-            "Can't get filthy rich without some help! "
-            "You've received a PM containing information."
-        )
+        return self._help

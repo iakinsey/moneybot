@@ -56,7 +56,7 @@ async def on_message(message):
         else:
             raise
     except Exception:
-        err = "Your message broke me, I hope you're satisfied."
+        err = "Beep! Beep! You broke the bank. I hope you're satisfied."
         await client.send_message(message.channel, err)
         raise
 
