@@ -41,7 +41,7 @@ class Fling(Command):
 
         word = choice(["caught", "got lucky with", "found", "won", "stumbled upon"])
 
-        return "<@{}> {} ${}".format(lucky_user_id, word amount)
+        return "<@{}> {} ${}".format(lucky_user_id, word, amount)
 
 
 
