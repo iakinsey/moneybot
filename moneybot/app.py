@@ -29,6 +29,9 @@ def get_contents(message):
 
 
 async def process_message(message):
+    if message.server is None:
+        return
+
     author = message.author.id
     server = message.server.id
     contents = get_contents(message)
