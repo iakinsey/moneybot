@@ -28,6 +28,6 @@ class Pay(Command):
         if not destination_user_id:
             raise InvalidCommand("No such user!")
 
-        transfer_balance(server_id, source_user_id, destination_user_id, amount)
+        await transfer_balance(server_id, source_user_id, destination_user_id, amount)
 
         return "Sent ${} to <@{}>".format(amount, destination_user_id)

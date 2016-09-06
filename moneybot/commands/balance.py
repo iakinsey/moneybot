@@ -19,7 +19,7 @@ class Balance(Command):
         if user_id is None:
             raise InvalidCommand("No such user!")
 
-        balance = get_user_balance(server_id, user_id)
+        balance = await get_user_balance(server_id, user_id)
 
         if balance == 0:
             return "<@{}>'s balance is: $0. You're broke lol!".format(user_id)

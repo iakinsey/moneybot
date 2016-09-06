@@ -22,15 +22,15 @@ def get_query(query_name):
     return query
 
 
-def insert(query_name, *args, **kwargs):
+async def insert(query_name, *args, **kwargs):
     # TODO something smarter
-    execute(query_name, *args)
+    await execute(query_name, *args)
 
 
-def select(query_name, *args, **kwargs):
+async def select(query_name, *args, **kwargs):
     # If set to true, then only send the first result.
     first = kwargs.get("first", False)
-    con, cur = execute(query_name, *args)
+    con, cur = await execute(query_name, *args)
 
     if first:
         return cur.fetchone()
@@ -38,7 +38,7 @@ def select(query_name, *args, **kwargs):
         return cur.fetchall()
 
 
-def execute(query_name, *args):
+async def execute(query_name, *args):
     query = get_query(query_name)
     con = get_con()
     cur = con.cursor()
