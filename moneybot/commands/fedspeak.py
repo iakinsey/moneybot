@@ -6,6 +6,7 @@ from random import choice
 
 class FedSpeak(Command):
     prefix = "fedspeak"
+    description = "Speak like the federal reserve!"
 
     options = [
         "The members of the Board of Governors and the Reserve Bank presidents foresee an implicit strengthening of activity after the current rebalancing is over, although the central tendency of their individual forecasts for real GDP still shows a substantial slowdown, on balance, for the year as a whole.",
@@ -14,5 +15,6 @@ class FedSpeak(Command):
         "Risk takers have been encouraged by a perceived increase in economic stability to reach out to more distant time horizons. But long periods of relative stability often engender unrealistic expectations of it[s] permanence and, at times, may lead to financial excess and economic stress.",
         "Modest preemptive action can obviate the need of more drastic actions at a later date and that could destabilize the economy."
     ]
-    def default(self):
+
+    async def default(self):
         return choice(self.options)

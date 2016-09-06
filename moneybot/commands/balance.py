@@ -5,8 +5,10 @@ from moneybot.ledger import get_user_balance
 
 class Balance(Command):
     prefix = "balance"
+    description = "Get user balance"
+    examples = ["$balance"]
 
-    def default(self):
+    async def default(self):
         server_id = int(self.message.server.id)
 
         if len(self.tokens) == 2:

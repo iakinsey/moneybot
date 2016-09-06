@@ -5,8 +5,13 @@ from moneybot.ledger import transfer_balance
 
 class Pay(Command):
     prefix = "pay"
+    description = "Pay a user. Must point to a valid user."
+    examples = [
+        "$pay @user 100",
+        "$pay @Moneybot 10000"
+    ]
 
-    def default(self):
+    async def default(self):
         server_id = int(self.message.server.id)
         source_user_id = int(self.message.author.id)
 

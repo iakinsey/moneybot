@@ -36,8 +36,8 @@ async def process_message(message):
     if contents:
         tokens = contents.split()
         Command = get_command(tokens[0])
-        command = Command(message, contents, tokens)
-        response = command.perform()
+        command = Command(client, message, contents, tokens)
+        response = await command.perform()
 
         if response:
             await client.send_message(message.channel, response)

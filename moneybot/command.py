@@ -13,17 +13,19 @@ class Command:
     """
 
     prefix = None
-    help = None
+    description = None
+    examples = []
 
-    def __init__(self, message, contents, tokens):
+    def __init__(self, client, message, contents, tokens):
+        self.client = client
         self.message = message
         self.contents = contents
         self.tokens = tokens
 
-    def perform(self):
-        return self.default()
+    async def perform(self):
+        return await self.default()
 
-    def default(self):
+    async def default(self):
         raise InvalidCommand("Invalid {} command!".format(self.prefix))
 
     def parse_user_string(self, user_str):
@@ -42,7 +44,12 @@ class Command:
 
 
 def get_command(name):
-    return COMMANDS[name]
+    command = COMMANDS.get(name)
+
+    if not command:
+        raise InvalidCommand("No such command!")
+
+    return command
 
 
 def setup_commands():
@@ -68,3 +75,11 @@ def setup_commands():
                 raise ValueError(err)
 
             COMMANDS.update({attr.prefix: attr})
+
+
+def get_help():
+    return [{
+        "name": Command.prefix,
+        "description": Command.description,
+        "examples": Command.examples
+    } for name, Command in COMMANDS.items()]
