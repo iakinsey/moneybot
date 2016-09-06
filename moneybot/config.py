@@ -13,6 +13,7 @@ def required(key):
 
 
 PROJECT_ROOT = abspath(dirname(dirname(realpath(__file__))))
+COMMANDS_PATH = join(PROJECT_ROOT, 'moneybot', 'commands')
 DATA_PATH = join(PROJECT_ROOT, 'data')
 DB_PATH = join(DATA_PATH, 'ledger.db')
 SQL_PATH = join(PROJECT_ROOT, 'sql')
