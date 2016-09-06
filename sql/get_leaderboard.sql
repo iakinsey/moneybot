@@ -1,3 +1,5 @@
-SELECT count(amount)
+SELECT user_id, sum(amount) as result
 FROM ledger
-GROUP BY server_id
+WHERE server_id = ?
+GROUP BY user_id
+ORDER BY result DESC

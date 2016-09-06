@@ -16,7 +16,7 @@ class Help(Command):
 
         return (
             "Can't get filthy rich without some help! "
-            "You've received a PM containing information."
+            "You've received a PM full of it."
         )
 
     @property

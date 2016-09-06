@@ -21,6 +21,16 @@ async def transfer_balance(server_id, source_user_id, destination_user_id, amoun
     await insert('update_balance', server_id, destination_user_id, amount)
 
 
+async def burn_balance(server_id, user_id, amount):
+    balance = await get_user_balance(server_id, user_id)
+
+    if not balance or amount > balance:
+        msg = "You have insufficient funds! Current balance is: {}"
+        raise InsufficientFunds(msg.format(balance))
+
+    await insert('update_balance', server_id, user_id, -amount)
+
+
 async def get_user_balance(server_id, user_id):
     result = await select('get_user_balance', server_id, user_id, first=True)
 
@@ -28,6 +38,12 @@ async def get_user_balance(server_id, user_id):
         return result[0] or 0
 
     return 0
+
+
+async def get_leaderboard(server_id):
+    result = await select('get_leaderboard', server_id)
+
+    return result
 
 
 async def get_channel_balances(server_id):

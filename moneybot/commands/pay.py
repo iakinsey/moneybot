@@ -16,7 +16,7 @@ class Pay(Command):
         source_user_id = int(self.message.author.id)
 
         if len(self.tokens) != 3:
-            raise InvalidCommand("Send command was not formatted properly!")
+            raise InvalidCommand("Pay command was not formatted properly!")
 
         amount = self.parse_int(self.tokens[2])
 
