@@ -3,3 +3,4 @@ FROM ledger
 WHERE server_id = ?
 GROUP BY user_id
 ORDER BY result DESC
+LIMIT 5

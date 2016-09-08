@@ -14,11 +14,6 @@ class Help(Command):
     async def default(self):
         await self.client.send_message(self.message.author, self.help)
 
-        return (
-            "Can't get filthy rich without some help! "
-            "You've received a PM full of it."
-        )
-
     @property
     def help(self):
         if self._help is not None:

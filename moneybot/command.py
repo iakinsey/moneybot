@@ -42,6 +42,14 @@ class Command:
         except ValueError:
             return None
 
+    @property
+    def user_is_admin(self):
+        pass
+
+    @property
+    def addressing_me(self):
+        pass
+
 
 def get_command(name):
     command = COMMANDS.get(name)
