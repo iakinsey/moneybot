@@ -1,13 +1,22 @@
 from importlib import import_module
 from moneybot import config
 from moneybot.exc import InvalidCommand
+from moneybot.ledger import get_user_balance
 from os import listdir
 
 
 COMMANDS = {}
 
 
-class Command:
+class Moneybot:
+    async def get_balance(self):
+        return await get_user_balance(self.server_id, self.author_id)
+
+    async def is_admin(self):
+        pass
+
+
+class Command(Moneybot):
     """
     Base command class.
     """
@@ -21,8 +30,17 @@ class Command:
         self.message = message
         self.contents = contents
         self.tokens = tokens
+        self.server_id = int(self.message.server.id)
+        self.author_id = int(self.message.author.id)
 
     async def perform(self):
+        if len(self.tokens) > 1:
+            token = self.tokens[1]
+            attr = getattr(self, token, None)
+
+            if hasattr(attr, "_is_alias"):
+                return await attr()
+
         return await self.default()
 
     async def default(self):
@@ -41,14 +59,6 @@ class Command:
             return int(string)
         except ValueError:
             return None
-
-    @property
-    def user_is_admin(self):
-        pass
-
-    @property
-    def addressing_me(self):
-        pass
 
 
 def get_command(name):
@@ -91,3 +101,14 @@ def get_help():
         "description": Command.description,
         "examples": Command.examples
     } for name, Command in COMMANDS.items()]
+
+
+class alias:
+    def __init__(self, name, top=False):
+        self.name = name
+        self.top = top
+
+    def __call__(self, fn):
+        fn._is_alias = True
+
+        return fn

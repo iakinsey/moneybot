@@ -1,4 +1,5 @@
 from discord import Client
+from discord.errors import Forbidden
 from moneybot import config
 from moneybot.command import get_command
 from moneybot.exc import InvalidCommand, MoneybotException
@@ -55,6 +56,12 @@ async def on_message(message):
             await client.send_message(message.channel, e.args[0])
         else:
             raise
+    except NotImplementedError:
+        await client.send_message(message.channel, "Not implemented yet!")
+    except Forbidden as e:
+        if e.code == 50013:
+            err = "Beep! Beep! I do not have permission to do that!"
+            await client.send_message(message.channel, err)
     except Exception:
         err = "Beep! Beep! You broke the bank. I hope you're satisfied."
         await client.send_message(message.channel, err)
