@@ -1,4 +1,5 @@
 from moneybot.command import Command
+from moneybot.exc import InvalidCommand
 from moneybot.ledger import burn_balance
 
 class Burn(Command):
