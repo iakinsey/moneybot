@@ -58,7 +58,7 @@ class Command(Moneybot):
         try:
             return int(string)
         except ValueError:
-            if string == ":100:":
+            if string == ":100:" or string == "💯":
                 return 100
 
             return None
