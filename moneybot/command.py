@@ -58,14 +58,14 @@ class Command(Moneybot):
         try:
             return int(string)
         except ValueError:
+            if string == ":100:":
+                return 100
+
             return None
 
 
 def get_command(name):
     command = COMMANDS.get(name)
-
-    if not command:
-        raise InvalidCommand("No such command!")
 
     return command
 

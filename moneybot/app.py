@@ -40,11 +40,13 @@ async def process_message(message):
     if contents:
         tokens = contents.split()
         Command = get_command(tokens[0])
-        command = Command(client, message, contents, tokens)
-        response = await command.perform()
 
-        if response:
-            await client.send_message(message.channel, response)
+        if command is not None:
+            command = Command(client, message, contents, tokens)
+            response = await command.perform()
+
+            if response:
+                await client.send_message(message.channel, response)
 
 
 @client.event
