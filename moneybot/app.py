@@ -41,7 +41,7 @@ async def process_message(message):
         tokens = contents.split()
         Command = get_command(tokens[0])
 
-        if command is not None:
+        if Command is not None:
             command = Command(client, message, contents, tokens)
             response = await command.perform()
 
