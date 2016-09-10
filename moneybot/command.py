@@ -63,6 +63,12 @@ class Command(Moneybot):
 
             return None
 
+    def format_int(self, integer):
+        if integer == 100:
+            return ":100:"
+        else:
+            return "{:,}".format(integer)
+
 
 def get_command(name):
     command = COMMANDS.get(name)

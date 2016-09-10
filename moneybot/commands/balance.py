@@ -1,6 +1,7 @@
 from moneybot.command import Command
 from moneybot.exc import InvalidCommand
 from moneybot.ledger import get_user_balance
+from moneybot.util import format_int
 
 
 class Balance(Command):
@@ -24,4 +25,5 @@ class Balance(Command):
         if balance == 0:
             return "<@{}>'s balance is: $0. You're broke lol!".format(user_id)
         else:
-            return "<@{}>'s balance is: ${}".format(user_id, balance)
+            balance = self.format_int
+            return "<@{}>'s balance is: ${}".format(user_id, format_int(balance))

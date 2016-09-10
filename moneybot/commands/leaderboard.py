@@ -1,6 +1,6 @@
 from moneybot.command import Command
 from moneybot.ledger import get_leaderboard
-
+from moneybot.util import format_int
 
 class Leaderboard(Command):
     prefix = "leaderboard"
@@ -17,6 +17,6 @@ class Leaderboard(Command):
 
         for user_id, amount in leaderboard:
             count += 1
-            rows.append("{}. ${} <@{}>".format(count, amount, user_id))
+            rows.append("{}. ${} <@{}>".format(count, format_int(amount), user_id))
 
         return "**The Wealthiest**\n{}".format("\n".join(rows))

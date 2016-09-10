@@ -2,6 +2,7 @@ from random import choice
 from moneybot.command import Command
 from moneybot.exc import InvalidCommand
 from moneybot.ledger import transfer_balance
+from moneybot.util import format_int
 
 
 class Fling(Command):
@@ -40,4 +41,4 @@ class Fling(Command):
 
         word = choice(["caught", "got lucky with", "found", "won", "stumbled upon"])
 
-        return "<@{}> {} ${}".format(lucky_user_id, word, amount)
+        return "<@{}> {} ${}".format(lucky_user_id, word, format_int(amount))

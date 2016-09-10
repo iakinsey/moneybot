@@ -1,6 +1,7 @@
 from moneybot.command import Command, get_help, alias
 from moneybot.exc import InvalidCommand
 from moneybot.ledger import burn_balance
+from moneybot.util import format_int
 
 
 PRICES = {
@@ -35,7 +36,7 @@ class Buy(Command):
         elif item == "price":
             raise InvalidCommand("Price queries are free")
 
-        return "The price for {} is {}".format(item, price)
+        return "The price for {} is {}".format(item, format_int(price))
 
     @alias("motd", top=True)
     async def motd(self):

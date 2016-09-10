@@ -2,6 +2,7 @@ from moneybot import config
 from moneybot.command import Command
 from moneybot.exc import InvalidCommand
 from moneybot.ledger import get_user_balance, burn_balance, transfer_balance
+from moneybot.util import format_int
 from random import uniform, randrange
 
 
@@ -52,11 +53,11 @@ class Steal(Command):
 
         probability = uniform(0, 1)
         steal_amount = randrange(int(amount / 2), amount) or 1
-        response = "You lost {} of your own money in the heist, good job.".format(steal_amount)
+        response = "You lost {} of your own money in the heist, good job.".format(format_int(steal_amount))
 
         if probability > config.STEAL_FAILURE_PROBABILITY:
             # Success
-            response = "Successfully stole {} from <@{}>.".format(steal_amount, destination_user_id)
+            response = "Successfully stole {} from <@{}>.".format(format_int(steal_amount), destination_user_id)
             await transfer_balance(server_id, destination_user_id, source_user_id, steal_amount)
         else:
             # Failure

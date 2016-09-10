@@ -1,6 +1,8 @@
 from moneybot.command import Command
 from moneybot.exc import InvalidCommand
 from moneybot.ledger import burn_balance
+from moneybot.util import format_int
+
 
 class Burn(Command):
     prefix = "burn"
@@ -32,4 +34,4 @@ class Burn(Command):
 
         msg = "<@{}> just burned ${} :fire: :fire: :fire:"
 
-        return msg.format(user_id, amount)
+        return msg.format(user_id, format_int(amount))

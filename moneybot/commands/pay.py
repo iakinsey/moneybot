@@ -1,6 +1,7 @@
 from moneybot.command import Command
 from moneybot.exc import InvalidCommand
 from moneybot.ledger import transfer_balance
+from moneybot.util import format_int
 
 
 class Pay(Command):
@@ -30,4 +31,4 @@ class Pay(Command):
 
         await transfer_balance(server_id, source_user_id, destination_user_id, amount)
 
-        return "Sent ${} to <@{}>".format(amount, destination_user_id)
+        return "Sent ${} to <@{}>".format(format_int(amount), destination_user_id)
