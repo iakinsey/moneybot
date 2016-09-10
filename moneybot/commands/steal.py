@@ -29,6 +29,12 @@ class Steal(Command):
         if amount is None:
             raise InvalidCommand("Amount must be an number!")
 
+        if amount == 0:
+            raise InvalidCommand("Do you even know how to steal?")
+
+        if amount < 0:
+            raise InvalidCommand("Amount can't be negative!")
+
         destination_user_id = self.parse_user_string(self.tokens[1])
 
         if not destination_user_id:
